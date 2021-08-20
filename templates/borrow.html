@@ -1,96 +1,102 @@
 {% extends 'base.html' %}
 {% block body %}
-<form method="post" id="createform" style="margin-top: 10%">
-  {% csrf_token %}
-  {% load static %}
+    <form method="post" id="createform" style="margin-top: 10%">
+        {% csrf_token %}
+        {% load static %}
 
-  <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">財產名稱</th>
-        <th scope="col">內文</th>
-        <th scope="col">照片</th>
-        <th scope="col">位置</th>
-        <th scope="col">剩餘數量</th>
-        <th scope="col">借用數量</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for product in products %}
-      <tr>
-        <td class="productname">{{ product.name }}</td>
-        <td>{{ product.content }}</td>
-        <!-- watch img 按鈕增設 -->
-        <td><button type="button" class="btn btn-outline-primary" onclick="imgchange('{{ product.photo.url }}')">watch
-            img</button></td>
-        <td>{{ product.location }}</td>
-        <td>{{ product.total }}</td>
-        <td><input class="productcount" name="borrowOrNot" min="0" type="number" value="0"></td>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">財產名稱</th>
+                <th scope="col">內文</th>
+                <th scope="col">照片</th>
+                <th scope="col">位置</th>
+                <th scope="col">剩餘數量</th>
+                <th scope="col">借用數量</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td class="productname">{{ product.name }}</td>
+                    <td>{{ product.content }}</td>
+                    <!-- watch img 按鈕增設 -->
+                    <td>
+                        <button type="button" class="btn btn-outline-primary"
+                                onclick="imgchange('{{ product.photo.url }}')">watch
+                            img
+                        </button>
+                    </td>
+                    <td>{{ product.location }}</td>
+                    <td>{{ product.total }}</td>
+                    <td><input class="productcount" name="borrowOrNot" min="0" type="number" value="0"></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <button class="btn btn-info" onclick="Check()" type="button">確認借用</button>
+        <p>{{ error }}</p>
+    </form>
 
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  <button class="btn btn-info" onclick="Check()" type="button">確認借用</button>
-  <p>{{error}}</p>
-</form>
+    <!-- 彈跳式視窗 -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">picture-show-up</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
-<!-- 彈跳式視窗 -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">picture-show-up</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-        <img id="showimg" src="" />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+                    <img id="showimg" src=""/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<script>
-  function imgchange(imgurl) {
-    $("#showimg").attr("src", imgurl)
-    $("#exampleModal").modal('show')
-  }
-  function Check() {
-    let names = $('table > tbody > tr')
-    let counts = $("input[name='borrowOrNot']")
-    let namesarray = []
-    let countarray = []
-    names.each(function () {
-      var mWord = $.trim($(this).find("td:eq(0)").text()); //1是抓取第二欄的文字
-      namesarray.push(mWord)
-    });
+    <script>
+        function imgchange(imgurl) {
+            $("#showimg").attr("src", imgurl)
+            $("#exampleModal").modal('show')
+        }
 
-    counts.each(function (i) {
-      countarray.push($(this).val());
-    })
+        function Check() {
+            let names = $('table > tbody > tr')
+            let counts = $("input[name='borrowOrNot']")
+            let namesarray = []
+            let countarray = []
+            names.each(function () {
+                var mWord = $.trim($(this).find("td:eq(0)").text()); //1是抓取第二欄的文字
+                namesarray.push(mWord)
+            });
 
-    showstring = "借用列表\n"
-    {console.log(showstring)}
+            counts.each(function (i) {
+                countarray.push($(this).val());
+            })
 
-    for (var i = 0; i < namesarray.length; i++) {
-      if (countarray[i] > 0) {
-        showstring += namesarray[i] + " " + countarray[i] + "\n"
-      }
-    }
-    var yes = confirm(showstring);
-    if (yes) {
-      $("#createform").submit();
-    } else {
-      alert("已取消。")
-    }
+            showstring = "借用列表\n"
+            {
+                console.log(showstring)
+            }
 
-  }
-</script>
+            for (var i = 0; i < namesarray.length; i++) {
+                if (countarray[i] > 0) {
+                    showstring += namesarray[i] + " " + countarray[i] + "\n"
+                }
+            }
+            var yes = confirm(showstring);
+            if (yes) {
+                $("#createform").submit();
+            } else {
+                alert("已取消。")
+            }
+
+        }
+    </script>
 {% endblock %}
