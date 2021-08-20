@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<table class="table" >
+      <thead class="thead-dark">
+        <tr>
+            <th scope="col">財產名稱</th>
+            <th scope="col">內文</th>
+            <th scope="col">照片</th>
+            <th scope="col">位置</th>
+            <th scope="col">剩餘數量</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for product in products %}
+        <tr>
+          <td class="productname">{{ product.name }}</td>
+          <td>{{ product.content }}</td>
+          <td>圖片</td>
+          <td>{{ product.location }}</td>
+          <td>{{ product.total }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+</table>
+
+{% endblock %}

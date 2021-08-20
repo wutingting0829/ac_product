@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<form method="post" id="createform" style="margin-top: 10%" >
+{% csrf_token %}
+
+    <table class="table" >
+      <thead class="thead-dark">
+        <tr>
+            <th scope="col">財產名稱</th>
+            <th scope="col">借用數量</th>
+            <th scope="col">歸還設備</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for user_product in user_products_list %}
+        <tr>
+          <td> {{ user_product.key_Product.name }}</td> {#使用者每一筆抓取model.py的key_Product的name關聯#}
+          <td>{{ user_product.num }}</td> {#使用者每一筆抓取model.py的key_Product的total關聯#}
+             <td><button class="btn btn-info"  onclick="confirm('確認刪除')?window.location.href='{% url 'return_delete' user_product.id %}':alert('取消刪除')" type="button">歸還設備</button></td> {#跳出詢問是否刪除#}
+        </tr>
+      {% endfor %}
+      </tbody>
+</table>
+
+</form>
+{% endblock %}
