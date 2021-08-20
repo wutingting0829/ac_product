@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-)c#2xw&s61fs6rdxd&!2clksg@+ihi@$an&u#8-iegqxo)=p_p
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -71,7 +69,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ac_product.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -81,7 +78,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -101,11 +97,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'zh-Hant' #語言台灣
+LANGUAGE_CODE = 'zh-Hant'  # 語言台灣
 
 TIME_ZONE = 'Asia/Taipei'
 
@@ -114,7 +109,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -126,12 +120,13 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#指定圖片位置
+# 指定圖片位置
 import os
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATIC_URL = '/static/' #靜態模板(static 模板标签基于配置 STATICFILES_STORAGE 位给定的相对路径构建 URL。)
+STATIC_URL = '/static/'  # 靜態模板(static 模板标签基于配置 STATICFILES_STORAGE 位给定的相对路径构建 URL。)
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    '/var/www/static/',]
+    '/var/www/static/', ]
