@@ -37,7 +37,7 @@ def borrow(request):
         for i in range(len(borrows)):
             if int(borrows[i]) >0 :
                 if int(products[i].total)>int(borrows[i]):
-                    ProductUser.objects.create(user=request.user,Product = products[i],num = borrows[i])
+                    ProductUser.objects.create(user=request.user,key_Product = products[i],num = borrows[i])
                     total=str(int(products[i].total)-int(borrows[i])) #算出剩餘數量
                     #更新網頁剩餘數量
                     product_new_account = Product.objects.get(id=products[i].id)
