@@ -75,9 +75,10 @@
     counts.each(function (i) {
       countarray.push($(this).val());
     })
-    {console.log(showstring)}
 
     showstring = "借用列表\n"
+    {console.log(showstring)}
+
     for (var i = 0; i < namesarray.length; i++) {
       if (countarray[i] > 0) {
         showstring += namesarray[i] + " " + countarray[i] + "\n"
