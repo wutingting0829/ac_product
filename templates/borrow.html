@@ -26,12 +26,11 @@
         <td>{{ product.location }}</td>
         <td>{{ product.total }}</td>
         <td><input class="productcount" name="borrowOrNot" min="0" type="number" value="0"></td>
-
       </tr>
       {% endfor %}
     </tbody>
   </table>
-  <button class="btn btn-info" onclick="Check()" type="button">確認借用</button>
+    <button class="btn btn-info" onclick="Check()" type="button">確認借用</button>
   <p>{{error}}</p>
 </form>
 
