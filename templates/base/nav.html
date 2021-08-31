@@ -12,16 +12,6 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home首頁 <span class="sr-only">(current)</span></a> {# href="/"  回主頁 #}
                 </li>
-                {% if request.user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">logout登出</a>
-                    </li>
-                {% else %}
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">login登入</a>
-                    </li>
-                {% endif %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -32,6 +22,17 @@
                         <a class="dropdown-item" href="/return">return歸還</a>
                     </div>
                 </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">logout登出</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">login登入</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
