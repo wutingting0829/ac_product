@@ -16,7 +16,7 @@
             <ul class="navbar-nav ml-auto">
                 {% if request.user.is_authenticated %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{request.user}}</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">歡迎 {{request.user}}</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/borrow">借用</a>
                             <a class="dropdown-item" href="/return">歸還</a>
@@ -25,7 +25,7 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">login登入</a>
+                        <a class="nav-link" href="/login" id="login_button">login登入</a>
                     </li>
                 {% endif %}
             </ul>
