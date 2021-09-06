@@ -16,13 +16,30 @@
             </tr>
         </thead>
         <tbody>
-            {% for book in book_list %}
+            {% for contact in page_obj %}
                 <tr>
-                    <td class="productname" style="width: 30%">{{ book.title }}</td>
-                    <td style="width: 30%">{{ book.author }}</td>
-                    <td><img style="height: 20%; width: 40%;" src={{ book.photo.url }}></td>
+                    <td class="productname" style="width: 30%">{{ contact.title }}</td>
+                    <td style="width: 30%">{{ contact.author }}</td>
+                    <td><img style="height: 20%; width: 40%;" src={{ contact.photo.url }}></td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    <div class="pagination">
+        <span class="step-links" style="margin-left: 5px">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 {% endblock %}

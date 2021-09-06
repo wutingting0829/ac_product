@@ -4,10 +4,6 @@ from django.db import models
 from django.conf import settings
 
 
-# Create your models here.
-from django.utils import timezone
-
-
 class Product(models.Model):
     name = models.CharField(verbose_name="財產名稱", max_length=100)  # verbose_name="財產名稱"---改系統內建名稱
     content = models.TextField(blank=True)

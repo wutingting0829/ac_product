@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
@@ -80,4 +81,7 @@ def logout(request):
 
 def all_books(request):
     book_list = Book.objects.all()
+    paginator = Paginator(book_list, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     return render(request, "all_books.html", locals())
