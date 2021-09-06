@@ -7,7 +7,8 @@
     </style>
 {% endblock %}
 {% block body %}
-    <table class="table" style="margin-top: 10%">
+    <!--所有書籍列表-->
+    <table class="table" style="margin-top: 10%; border-bottom: gray solid 1px;">
         <thead class="thead-dark">
             <tr>
                 <th>書名</th>
@@ -25,6 +26,7 @@
             {% endfor %}
         </tbody>
     </table>
+    <!--換頁按鈕-->
     <div class="pagination">
         <span class="step-links" style="margin-left: 5px">
             {% if page_obj.has_previous %}
