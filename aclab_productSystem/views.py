@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
-from .models import Product, ProductUser
+from .models import Product, ProductUser, Book, BookBorrow
 from django.contrib import auth
 
 
@@ -76,3 +76,8 @@ def return_delete(request, deleteid):
 def logout(request):
     auth.logout(request)
     return redirect("")
+
+
+def all_books(request):
+    book_list = Book.objects.all()
+    return render(request, "all_books.html", locals())

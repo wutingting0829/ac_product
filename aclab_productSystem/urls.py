@@ -24,4 +24,5 @@ urlpatterns = [
     path('return', views.return_products, name="return"),
     path('return/<deleteid>', views.return_delete, name="return_delete"),
     path('logout', views.logout, name="logout"),
+    path('all_book', views.all_books, name="all_book"),
 ]
