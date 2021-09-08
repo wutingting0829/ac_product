@@ -1,7 +1,10 @@
+import datetime
+
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
-from .models import Product, ProductUser
+from .models import Product, ProductUser, Book, BookBorrow
 from django.contrib import auth
 
 
@@ -57,6 +60,7 @@ def return_products(request):
         return redirect('login')
 
     user_products_list = ProductUser.objects.filter(user=request.user)  # 取出使用者借用財產項目
+    user_book_list = BookBorrow.objects.filter(user=request.user)
     print(user_products_list)
 
     return render(request, "return.html", locals())  # 回傳到前端
@@ -76,3 +80,32 @@ def return_delete(request, deleteid):
 def logout(request):
     auth.logout(request)
     return redirect("")
+
+
+def all_books(request):
+    book_list = Book.objects.all()
+    paginator = Paginator(book_list, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "all_books.html", locals())
+
+
+def borrowbook(request):
+    book = Book.objects.all().filter(isbn__exact=request.GET.get('book')).get()
+    user = request.user
+    record = BookBorrow(book=book, user=user, expired_date=datetime.date.today() + datetime.timedelta(days=7))
+    record.save()
+    book.status = 'o'
+    book.save()
+    return redirect("all_book")
+
+
+def return_book(request):
+    book = request.GET.get('book')
+    user = request.user
+    record = BookBorrow.objects.all().filter(book=book).filter(user=user).get()
+    record.delete()
+    book_record = Book.objects.all().filter(isbn=book).get()
+    book_record.status = 'a'
+    book_record.save()
+    return redirect("return")
