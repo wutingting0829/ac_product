@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
@@ -85,3 +87,13 @@ def all_books(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, "all_books.html", locals())
+
+
+def borrowbook(request):
+    book = Book.objects.all().filter(isbn__exact=request.GET.get('book')).get()
+    user = request.user
+    record = BookBorrow(book=book, user=user, expired_date=datetime.date.today() + datetime.timedelta(days=7))
+    record.save()
+    book.status = 'o'
+    book.save()
+    return redirect("all_book")
