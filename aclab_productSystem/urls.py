@@ -17,13 +17,14 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
-
-
 urlpatterns = [
-    path('',views.Index, name=""),
-    path('login',views.Login, name="login"),
-    path('borrow',views.borrow,name ="borrow"),
-    path('return',views.return_products,name ="return"),
-    path('return/<deleteid>',views.return_delete,name ="return_delete"),
-    path('logout',views.logout,name = "logout"),
+    path('', views.Index, name=""),
+    path('login', views.Login, name="login"),
+    path('borrow', views.borrow, name="borrow"),
+    path('return', views.return_products, name="return"),
+    path('return/<deleteid>', views.return_delete, name="return_delete"),
+    path('logout', views.logout, name="logout"),
+    path('all_book', views.all_books, name="all_book"),
+    path('borrowbook', views.borrowbook, name="borrowbook"),
+    path('returnbook', views.return_book, name="returnbook"),
 ]

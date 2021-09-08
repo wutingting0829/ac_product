@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block head %}
+    <style>
+        #mainNav {
+            position: absolute;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <!--所有書籍列表-->
+    <table class="table" style="margin-top: 10%; border-bottom: gray solid 1px;">
+        <thead class="thead-dark">
+        <tr>
+            <th>書名</th>
+            <th>作者</th>
+            <th>狀態</th>
+            <th>封面</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for contact in page_obj %}
+            <tr>
+                <td class="productname" style="width: 30%">{{ contact.title }}</td>
+                <td style="width: 15%">{{ contact.author }}</td>
+                <td style="width: 15%" >
+                    <button {% if request.user.is_authenticated %}{% if contact.status == 'a' %}onclick="location.href='/borrowbook?book={{ contact.isbn }}';"{% endif %}{% else %}onclick="location.href='/login'{% endif %};" type="button" class="btn {% if contact.status == 'a' %}btn-success{% elif contact.status == 'm' %}btn-danger{% else %}btn-warning{% endif %}">{{ contact.get_status_display }}</button>
+                </td>
+                <td><img style="height: 20%; width: 40%;" src={{ contact.photo.url }}></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <!--換頁按鈕-->
+    <div class="pagination">
+        <span class="step-links" style="margin-left: 5px">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}
