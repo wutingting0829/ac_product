@@ -60,6 +60,7 @@ def return_products(request):
         return redirect('login')
 
     user_products_list = ProductUser.objects.filter(user=request.user)  # 取出使用者借用財產項目
+    user_book_list = BookBorrow.objects.filter(user=request.user)
     print(user_products_list)
 
     return render(request, "return.html", locals())  # 回傳到前端
@@ -97,3 +98,14 @@ def borrowbook(request):
     book.status = 'o'
     book.save()
     return redirect("all_book")
+
+
+def return_book(request):
+    book = request.GET.get('book')
+    user = request.user
+    record = BookBorrow.objects.all().filter(book=book).filter(user=user).get()
+    record.delete()
+    book_record = Book.objects.all().filter(isbn=book).get()
+    book_record.status = 'a'
+    book_record.save()
+    return redirect("return")

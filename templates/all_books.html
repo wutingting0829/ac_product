@@ -23,7 +23,7 @@
                 <td class="productname" style="width: 30%">{{ contact.title }}</td>
                 <td style="width: 15%">{{ contact.author }}</td>
                 <td style="width: 15%" >
-                    <button {% if contact.status == 'a' %}onclick="location.href='/borrowbook?book={{ contact.isbn }}';"{% endif %} type="button" class="btn {% if contact.status == 'a' %}btn-success{% elif contact.status == 'm' %}btn-danger{% else %}btn-warning{% endif %}">{{ contact.get_status_display }}</button>
+                    <button {% if request.user.is_authenticated %}{% if contact.status == 'a' %}onclick="location.href='/borrowbook?book={{ contact.isbn }}';"{% endif %}{% else %}onclick="location.href='/login'{% endif %};" type="button" class="btn {% if contact.status == 'a' %}btn-success{% elif contact.status == 'm' %}btn-danger{% else %}btn-warning{% endif %}">{{ contact.get_status_display }}</button>
                 </td>
                 <td><img style="height: 20%; width: 40%;" src={{ contact.photo.url }}></td>
             </tr>

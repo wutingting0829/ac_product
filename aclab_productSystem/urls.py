@@ -26,4 +26,5 @@ urlpatterns = [
     path('logout', views.logout, name="logout"),
     path('all_book', views.all_books, name="all_book"),
     path('borrowbook', views.borrowbook, name="borrowbook"),
+    path('returnbook', views.return_book, name="returnbook"),
 ]

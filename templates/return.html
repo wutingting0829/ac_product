@@ -36,8 +36,29 @@
             {% endfor %}
             </tbody>
         </table>
-
     </form>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">書籍</th>
+                <th scope="col">到期日</th>
+                <th scope="col">歸還</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in user_book_list %}
+                <tr>
+                    <td> {{ record.book.title }}</td>
+                    <td> {{ record.expired_date }}</td>
+                    <td>
+                        <button class="btn" onclick="location.href='/returnbook?book={{ record.book.isbn }}';">
+                            歸還
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
 
+    </table>
 
 {% endblock %}
